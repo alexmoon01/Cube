@@ -2,6 +2,7 @@ package cubeSim;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import javax.swing.JComponent;
 
 /**
@@ -27,7 +28,10 @@ public class Cube extends JComponent {
     SIDE_LENGTH = side;
     
     FACE_COLOR = new Color[6];
-    //Assigns six distinct colors to the sides of the cube
+    //Assigns six distinct colors to the sides of the cube.
+    //[1] = top face, [2] = bottom face,
+    //[3] = left face, [4] = front face,
+    //[5] = right face, [6] = back face
     for (int i = 0; i < FACE_COLOR.length; i++) {
       FACE_COLOR[i] = new Color(42 * i, 255 - 42 * i, (int)(Math.random() * 255));
     }
@@ -40,6 +44,10 @@ public class Cube extends JComponent {
    * @param g The canvas on which we will draw.
    */
   public void draw(Graphics g) {
-    
+    //This array holds the point locations of the four corners of
+    //every face. The face number is the first value, faces are listed
+    //in the same order as in the face color array. Corners are
+    //top left, bottom left, bottom right, top right.
+    Point[][] faceCorners = new Point[6][4];
   }
 }
