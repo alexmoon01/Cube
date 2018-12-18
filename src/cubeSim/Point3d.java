@@ -37,7 +37,7 @@ public class Point3d {
    * which is the difference between the two points.
    * @param p1
    * @param p2
-   * @return
+   * @return The vector that goes between the points
    */
   public static Point3d deltaVector(Point3d p1, Point3d p2) {
     return new Point3d(p1.X - p2.X, p1.Y - p2.Y, p1.Z - p2.Z);
