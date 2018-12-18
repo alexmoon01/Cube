@@ -6,7 +6,7 @@ import java.awt.Color;
  * A colored polygon in 3d space
  * @author Alex
  */
-public class Polygon {
+public class Polygon implements Viewable {
 
   private Point3d[] points;
   private Color color;
@@ -75,6 +75,13 @@ public class Polygon {
       }
     }
     return true;
+  }
+
+  @Override
+  public Polygon[] getPolygons() {
+    Polygon returnable[] = new Polygon[1];
+    returnable[0] = this;
+    return returnable;
   }
   
 
