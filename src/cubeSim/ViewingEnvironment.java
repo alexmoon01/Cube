@@ -4,7 +4,7 @@ package cubeSim;
  * The background and driver
  * @author Alex
  */
-public class Background {
+public class ViewingEnvironment {
 
   public static void main(String[] args) {
     
