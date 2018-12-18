@@ -27,6 +27,7 @@ public class Polygon implements Viewable {
       throw new IllegalArgumentException("ERROR: "
           + "Points don't all lie in the same plane.");
     }
+    this.points = new Point3d[points.length];
     for (int i = 0; i < points.length; i++) {
       this.points[i] = points[i];
     }
@@ -66,9 +67,11 @@ public class Polygon implements Viewable {
     Point3d p0 = points[0];
     
     for (int i = 3; i < points.length; i++) {
+      if (points[i] == null) break;
       Point3d testPoint = points[i];
       //If the point does not lie within the plane, return false
-      if (orthVector.X * (testPoint.X - p0.X) +
+      if (orthVector.X * 
+          (testPoint.X - p0.X) +
           orthVector.Y * (testPoint.Y - p0.Y) +
           orthVector.Z * (testPoint.Z - p0.Z) != 0) {
         return false;
@@ -84,6 +87,15 @@ public class Polygon implements Viewable {
     return returnable;
   }
   
-
+  @Override
+  public String toString() {
+    String asString = "{";
+    for (Point3d p : points) {
+      asString += p.toString() + ", ";
+    }
+    asString = asString.substring(0, asString.length() - 2);
+    asString += "}";
+    return asString;
+  }
   
 }

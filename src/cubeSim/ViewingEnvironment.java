@@ -1,12 +1,22 @@
 package cubeSim;
 
+import java.util.ArrayList;
+
 /**
- * The background and driver
+ * The viewing environment and driver
  * @author Alex
  */
 public class ViewingEnvironment {
 
-  Viewable[] objects;
+  private ArrayList<Viewable> objects;
+  
+  public ViewingEnvironment() {
+    objects = new ArrayList<Viewable>();
+  }
+  
+  public void addViewable(Viewable v) {
+    objects.add(v);
+  }
   
   public static void main(String[] args) {
     

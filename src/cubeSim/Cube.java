@@ -1,6 +1,7 @@
 package cubeSim;
 
 import java.awt.Color;
+import java.util.Arrays;
 import javax.swing.JComponent;
 
 /**
@@ -25,11 +26,11 @@ public class Cube extends JComponent implements Viewable {
       int alternator = (i % 2) * 2 - 1; //Alternates the fixed point's sign
       Point3d[] points = new Point3d[4]; //The set of points that will be passed into the sides
       //Assigning the correct corners to hold still
-      if (i <= 2) {
+      if (i < 2) {
         constantPlane = 0;
         varPlane1 = 1;
         varPlane2 = 2;
-      } else if (i <= 4) {
+      } else if (i < 4) {
         constantPlane = 1;
         varPlane1 = 0;
         varPlane2 = 2;
@@ -45,7 +46,7 @@ public class Cube extends JComponent implements Viewable {
           coordinates[constantPlane] = alternator * sideLength;
           coordinates[varPlane1] = j * sideLength;
           coordinates[varPlane2] = k * sideLength;
-          points[((j + 1) / 2) + (Math.abs(k - j) / 2)] =
+          points[(j + 1) + (Math.abs(k - j) / 2)] =
               new Point3d(coordinates[0], coordinates[1], coordinates[2]);
         }
       }
@@ -58,6 +59,16 @@ public class Cube extends JComponent implements Viewable {
   @Override
   public Polygon[] getPolygons() {
     return polygons;
+  }
+  
+  @Override
+  public String toString() {
+    String asString = "[";
+    for (Polygon p : polygons) {
+      asString += p.toString() + "\n";
+    }
+    asString += "]";
+    return asString;
   }
   
 }
