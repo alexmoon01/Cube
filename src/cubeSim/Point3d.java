@@ -35,8 +35,8 @@ public class Point3d {
   /**
    * Returns the vector (represented as a Point3d)
    * which is the difference between the two points.
-   * @param p1
-   * @param p2
+   * @param p1 The first point to be calculated.
+   * @param p2 The second point to be calculated.
    * @return The vector that goes between the points
    */
   public static Point3d deltaVector(Point3d p1, Point3d p2) {
@@ -52,7 +52,7 @@ public class Point3d {
    */
   public static Point3d crossProduct(Point3d v1, Point3d v2) {
     return new Point3d(v1.Y * v2.Z - v1.Z * v2.Y,
-        v1.Z * v2.X - v1.X * v2.Z, v1.X * v2.Y * v1.Y * v2.X);
+        v1.Z * v2.X - v1.X * v2.Z, v1.X * v2.Y - v1.Y * v2.X);
   }
   
   @Override

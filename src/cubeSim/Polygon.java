@@ -55,7 +55,7 @@ public class Polygon implements Viewable {
    * @param points The set of points to be tested
    * @return Whether the points all lie in the same plane
    */
-  private boolean pointsLieInPlane(Point3d[] points) {
+  public static boolean pointsLieInPlane(Point3d[] points) {
     if (points.length <= 3) {
       return true; //Three points are the definition of a plane
     }
@@ -63,6 +63,7 @@ public class Polygon implements Viewable {
     Point3d v2 = Point3d.deltaVector(points[0], points[2]);
     //Finding a vector orthogonal to the plane
     Point3d orthVector = Point3d.crossProduct(v1, v2);
+    System.out.println(orthVector);
     //The starting point for the plane
     Point3d p0 = points[0];
     
