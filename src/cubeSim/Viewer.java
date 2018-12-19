@@ -15,12 +15,13 @@ public class Viewer {
   private ViewingEnvironment environ; //The place in which the viewer looks around
   
   /**
-   * Instantiates basic info about the viewer. If I were to generalize
-   * @param x
-   * @param y
-   * @param z
-   * @param theta
-   * @param phi
+   * Instantiates basic info about the viewer.
+   * http://mathworld.wolfram.com/SphericalCoordinates.html For theta and phi
+   * @param x X location in the viewing environment
+   * @param y Y location in the viewing environment
+   * @param z Z location in the viewing environment
+   * @param theta Polar looking angle
+   * @param phi Azimuthal looking angle
    */
   public Viewer (double x, double y, double z, double theta, double phi, ViewingEnvironment environ) {
     this.x = x;
@@ -29,6 +30,41 @@ public class Viewer {
     this.theta = theta;
     this.phi = phi;
     this.environ = environ;
+  }
+
+  /**
+   * @return the x
+   */
+  public double getX() {
+    return x;
+  }
+
+  /**
+   * @return the y
+   */
+  public double getY() {
+    return y;
+  }
+
+  /**
+   * @return the z
+   */
+  public double getZ() {
+    return z;
+  }
+
+  /**
+   * @return the theta
+   */
+  public double getTheta() {
+    return theta;
+  }
+
+  /**
+   * @return the phi
+   */
+  public double getPhi() {
+    return phi;
   }
   
 }

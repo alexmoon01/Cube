@@ -1,6 +1,6 @@
 package tests;
 
-import cubeSim.*;
+import cubeSim.*; //I think a wildcard import is justified when it's the package you're testing.
 
 public class Tests {
 
@@ -9,7 +9,7 @@ public class Tests {
    */
   public static void main(String[] args) {
     boolean passed = true;
-//    passed &= testCube();
+    passed &= testCube();
     passed &= testPointsLieInPlane();
     if (passed) {
       System.out.println("All tests passed!");
@@ -39,14 +39,12 @@ public class Tests {
     test1[1] = new Point3d(1, 1, 1);
     test1[2] = new Point3d(1, 0, 1);
     test1[3] = new Point3d(1, 0, 0);
-    System.out.println(Polygon.pointsLieInPlane(test1));
     //Coplanar
     Point3d[] test2 = new Point3d[4];
     test2[0] = new Point3d(0, 0, 0);
     test2[1] = new Point3d(1, 1, 1);
     test2[2] = new Point3d(1, 0, 1);
     test2[3] = new Point3d(2, 2, 2);
-    System.out.println(Polygon.pointsLieInPlane(test2));
     return !Polygon.pointsLieInPlane(test1) &&
         Polygon.pointsLieInPlane(test2);
   }

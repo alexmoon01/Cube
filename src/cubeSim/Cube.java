@@ -1,15 +1,13 @@
 package cubeSim;
 
 import java.awt.Color;
-import java.util.Arrays;
-import javax.swing.JComponent;
 
 /**
  * The cube class. This will contain all of the information and the draw method
  * for a cube centered on zero.
  * @author Alex
  */
-public class Cube extends JComponent implements Viewable {
+public class Cube implements Viewable {
   private final Polygon[] polygons;
   
   /**

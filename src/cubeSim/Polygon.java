@@ -63,7 +63,6 @@ public class Polygon implements Viewable {
     Point3d v2 = Point3d.deltaVector(points[0], points[2]);
     //Finding a vector orthogonal to the plane
     Point3d orthVector = Point3d.crossProduct(v1, v2);
-    System.out.println(orthVector);
     //The starting point for the plane
     Point3d p0 = points[0];
     
