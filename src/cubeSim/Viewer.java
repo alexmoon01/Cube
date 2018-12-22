@@ -12,6 +12,8 @@ public class Viewer {
   private double theta; //Viewing polar angle (=>0 is =><1, 0, 0>
   private double phi; //Viewing azimuthal angle (=>0 is =><0, 0, 1>)
   
+  private int viewingAngle; //The lens width of the viewer's eyes
+  
   private ViewingEnvironment environ; //The place in which the viewer looks around
   
   /**
@@ -23,12 +25,13 @@ public class Viewer {
    * @param theta Polar looking angle
    * @param phi Azimuthal looking angle
    */
-  public Viewer (double x, double y, double z, double theta, double phi, ViewingEnvironment environ) {
+  public Viewer (double x, double y, double z, double theta, double phi, int viewingAngle, ViewingEnvironment environ) {
     this.x = x;
     this.y = y;
     this.z = z;
     this.theta = theta;
     this.phi = phi;
+    this.viewingAngle = viewingAngle;
     this.environ = environ;
   }
 
@@ -58,6 +61,13 @@ public class Viewer {
    */
   public double getTheta() {
     return theta;
+  }
+  
+  /**
+   * @return the viewing angle
+   */
+  public int getViewingAngle() {
+    return viewingAngle;
   }
 
   /**
