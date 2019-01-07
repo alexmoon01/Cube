@@ -29,7 +29,7 @@ public class Tests {
   }
   
   /**
-   * Tests {@link Polygon#pointsLieInPlane(cubeSim.Point3d[])}
+   * Tests {@link Polygon3d#pointsLieInPlane(cubeSim.Point3d[])}
    * @return True if test passed
    */
   public static boolean testPointsLieInPlane() {
@@ -45,7 +45,7 @@ public class Tests {
     test2[1] = new Point3d(1, 1, 1);
     test2[2] = new Point3d(1, 0, 1);
     test2[3] = new Point3d(2, 2, 2);
-    return !Polygon.pointsLieInPlane(test1) &&
-        Polygon.pointsLieInPlane(test2);
+    return !Polygon3d.pointsLieInPlane(test1) &&
+        Polygon3d.pointsLieInPlane(test2);
   }
 }

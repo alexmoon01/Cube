@@ -6,7 +6,7 @@ import java.awt.Color;
  * A colored polygon in 3d space
  * @author Alex
  */
-public class Polygon implements Viewable {
+public class Polygon3d implements Viewable {
 
   private Point3d[] points;
   private Color color;
@@ -18,7 +18,7 @@ public class Polygon implements Viewable {
    * @throws IllegalArgumentException If there are fewer than three
    * points or the points don't all lie in the same plane.
    */
-  public Polygon (Point3d[] points, Color color) {
+  public Polygon3d (Point3d[] points, Color color) {
     if (points.length < 3) {
       throw new IllegalArgumentException("ERROR: "
           + "Fewer than three points passed in points[] parameter.");
@@ -81,8 +81,8 @@ public class Polygon implements Viewable {
   }
 
   @Override
-  public Polygon[] getPolygons() {
-    Polygon returnable[] = new Polygon[1];
+  public Polygon3d[] getPolygons() {
+    Polygon3d returnable[] = new Polygon3d[1];
     returnable[0] = this;
     return returnable;
   }

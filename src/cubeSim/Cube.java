@@ -8,14 +8,14 @@ import java.awt.Color;
  * @author Alex
  */
 public class Cube implements Viewable {
-  private final Polygon[] polygons;
+  private final Polygon3d[] polygons;
   
   /**
    * Instantiates the attributes of the cube centered on zero
    * @param sideLength The length of a side of the cube
    */
   public Cube(int sideLength) {
-    polygons = new Polygon[6];
+    polygons = new Polygon3d[6];
     for (int i = 0; i < polygons.length; i++) {
       Color color = new Color(252 - 42 * i, 42 * i, (int)(Math.random() * 256));
       int constantPlane; //The corner that is held constant while the others vary to make a square
@@ -49,20 +49,20 @@ public class Cube implements Viewable {
         }
       }
       //Adding the square to the set of polygons
-      polygons[i] = new Polygon(points, color);
+      polygons[i] = new Polygon3d(points, color);
       
     }
   }
 
   @Override
-  public Polygon[] getPolygons() {
+  public Polygon3d[] getPolygons() {
     return polygons;
   }
   
   @Override
   public String toString() {
     String asString = "[";
-    for (Polygon p : polygons) {
+    for (Polygon3d p : polygons) {
       asString += p.toString() + "\n";
     }
     asString += "]";
