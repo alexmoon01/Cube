@@ -79,6 +79,34 @@ public class Polygon3d implements Viewable {
     }
     return true;
   }
+  
+  /**
+   * Getter for the amount of points in the polygon.
+   * @return The number of points in the polygon.
+   */
+  public int getNumPoints() {
+    return points.length;
+  }
+  
+  /**
+   * Calculates the orthocenter of the polygon
+   * @return The orthocenter of the polygon
+   */
+  public Point3d getOrthocenter() {
+    //The average of each dimension
+    double xBar = 0;
+    double yBar = 0;
+    double zBar = 0; 
+    for (int i = 0; i < points.length; i++) {
+      xBar += points[i].X;
+      yBar += points[i].Y;
+      zBar += points[i].Z;
+    }
+    xBar /= points.length;
+    yBar /= points.length;
+    zBar /= points.length;
+    return new Point3d(xBar, yBar, zBar);
+  }
 
   @Override
   public Polygon3d[] getPolygons() {

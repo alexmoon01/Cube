@@ -33,6 +33,17 @@ public class Point3d {
   }
   
   /**
+   * Finds the distance between two points
+   * @param p1 The first point
+   * @param p2 The second point
+   * @return The distance between them
+   */
+  public static double distanceBetween(Point3d p1, Point3d p2) {
+    return Math.sqrt(Math.pow(p1.X - p2.X, 2) + 
+        Math.pow(p1.Y - p2.Y, 2) + Math.pow(p1.Z - p2.Z, 2));
+  }
+  
+  /**
    * Returns the vector (represented as a Point3d)
    * which is the difference between the two points.
    * @param p1 The first point to be calculated.

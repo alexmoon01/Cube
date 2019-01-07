@@ -1,10 +1,12 @@
 package cubeSim;
 
+import java.util.Comparator;
+
 /**
  * The person who is looking at the cube
  * @author Alex
  */
-public class Viewer {
+public class Viewer implements Comparator<Polygon3d> {
 
   private double x; //x loc relative to center of cube
   private double y; //y loc relative to center of cube
@@ -12,7 +14,8 @@ public class Viewer {
   private double theta; //Viewing polar angle (=>0 is =><1, 0, 0>
   private double phi; //Viewing azimuthal angle (=>0 is =><0, 0, 1>)
   
-  private int viewingAngle; //The lens width of the viewer's eyes
+  private int viewingWidth; //The lens width of the viewer's eyes
+  private int viewingHeight; //The lens height of the viewer's eyes
   
   private ViewingEnvironment environ; //The place in which the viewer looks around
   
@@ -25,13 +28,14 @@ public class Viewer {
    * @param theta Polar looking angle
    * @param phi Azimuthal looking angle
    */
-  public Viewer (double x, double y, double z, double theta, double phi, int viewingAngle, ViewingEnvironment environ) {
+  public Viewer (double x, double y, double z, double theta, double phi, int viewingAngle, int viewingHeight, ViewingEnvironment environ) {
     this.x = x;
     this.y = y;
     this.z = z;
     this.theta = theta;
     this.phi = phi;
-    this.viewingAngle = viewingAngle;
+    this.viewingWidth = viewingAngle;
+    this.viewingHeight = viewingHeight;
     this.environ = environ;
   }
 
@@ -64,10 +68,17 @@ public class Viewer {
   }
   
   /**
-   * @return the viewing angle
+   * @return the viewing width
    */
-  public int getViewingAngle() {
-    return viewingAngle;
+  public int getViewingWidth() {
+    return viewingWidth;
+  }
+  
+  /**
+   * @return the viewing height
+   */
+  public int getViewingHeight() {
+    return viewingHeight;
   }
 
   /**
@@ -75,6 +86,16 @@ public class Viewer {
    */
   public double getPhi() {
     return phi;
+  }
+
+  @Override
+  public int compare(Polygon3d o1, Polygon3d o2) {
+    Point3d o1center = o1.getOrthocenter();
+    Point3d o2center = o2.getOrthocenter();
+    Point3d viewerLoc = new Point3d(x, y, z);
+    double d1 = Point3d.distanceBetween(viewerLoc, o1center);
+    double d2 = Point3d.distanceBetween(viewerLoc, o2center);
+    return (int)d2 - (int)d1;
   }
   
 }
