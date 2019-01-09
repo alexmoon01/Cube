@@ -14,8 +14,8 @@ public class Viewer implements Comparator<Polygon3d> {
   private double theta; //Viewing polar angle (=>0 is =><1, 0, 0>
   private double phi; //Viewing azimuthal angle (=>0 is =><0, 0, 1>)
   
-  private int viewingWidth; //The lens width of the viewer's eyes
-  private int viewingHeight; //The lens height of the viewer's eyes
+  private double viewingWidth; //The lens width of the viewer's eyes
+  private double viewingHeight; //The lens height of the viewer's eyes
   
   private ViewingEnvironment environ; //The place in which the viewer looks around
   
@@ -28,13 +28,13 @@ public class Viewer implements Comparator<Polygon3d> {
    * @param theta Polar looking angle
    * @param phi Azimuthal looking angle
    */
-  public Viewer (double x, double y, double z, double theta, double phi, int viewingAngle, int viewingHeight, ViewingEnvironment environ) {
+  public Viewer (double x, double y, double z, double theta, double phi, double viewingWidth, double viewingHeight, ViewingEnvironment environ) {
     this.x = x;
     this.y = y;
     this.z = z;
     this.theta = theta;
     this.phi = phi;
-    this.viewingWidth = viewingAngle;
+    this.viewingWidth = viewingWidth;
     this.viewingHeight = viewingHeight;
     this.environ = environ;
   }
@@ -70,14 +70,14 @@ public class Viewer implements Comparator<Polygon3d> {
   /**
    * @return the viewing width
    */
-  public int getViewingWidth() {
+  public double getViewingWidth() {
     return viewingWidth;
   }
   
   /**
    * @return the viewing height
    */
-  public int getViewingHeight() {
+  public double getViewingHeight() {
     return viewingHeight;
   }
 
