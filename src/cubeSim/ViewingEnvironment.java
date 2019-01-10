@@ -31,7 +31,7 @@ public class ViewingEnvironment {
     ViewingEnvironment environ = new ViewingEnvironment(500, 500);
     environ.addViewable(new Cube(10));
     //Adds a new viewer, pointing directly towards the origin
-    Viewer v = new Viewer(40, 60, 40, 5 * Math.PI / 4, 3 * Math.PI / 4, Math.PI / 2, Math.PI / 2, environ);
+    Viewer v = new CenterViewer(40, 60, 40, Math.PI / 2, Math.PI / 2, environ);
     environ.addViewer(v);
     
     JFrame encaps = new JFrame("Cube!");

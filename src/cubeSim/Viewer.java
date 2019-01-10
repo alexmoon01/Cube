@@ -8,11 +8,11 @@ import java.util.Comparator;
  */
 public class Viewer implements Comparator<Polygon3d> {
 
-  private double x; //x loc relative to center of cube
-  private double y; //y loc relative to center of cube
-  private double z; //z loc relative to center of cube
-  private double theta; //Viewing polar angle (=>0 is =><1, 0, 0>
-  private double phi; //Viewing azimuthal angle (=>0 is =><0, 0, 1>)
+  protected double x; //x loc relative to center of cube
+  protected double y; //y loc relative to center of cube
+  protected double z; //z loc relative to center of cube
+  protected double theta; //Viewing polar angle (=>0 is =><1, 0, 0>
+  protected double phi; //Viewing azimuthal angle (=>0 is =><0, 0, 1>)
   
   private double viewingWidth; //The lens width of the viewer's eyes
   private double viewingHeight; //The lens height of the viewer's eyes
@@ -28,7 +28,8 @@ public class Viewer implements Comparator<Polygon3d> {
    * @param theta the polar angle of the viewer
    * @param phi the azimuthal angle of the viewer
    */
-  public Viewer (double x, double y, double z, double theta, double phi, double viewingWidth, double viewingHeight, ViewingEnvironment environ) {
+  public Viewer (double x, double y, double z, double theta, double phi, 
+      double viewingWidth, double viewingHeight, ViewingEnvironment environ) {
     this.x = x;
     this.y = y;
     this.z = z;
@@ -38,18 +39,7 @@ public class Viewer implements Comparator<Polygon3d> {
     this.viewingHeight = viewingHeight;
     this.environ = environ;
     //Remove if you want viewer to not be fixed on center
-    setAnglesTowardsCenter();
-  }
-  
-  /**
-   * Sets the angles of the viewer such that they point directly
-   * towards the center of the environment.
-   */
-  public void setAnglesTowardsCenter() {
-    theta = Math.atan2(-y, -x) + 2 * Math.PI;
-    //Polar distance from z axis
-    double r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-    phi = Math.PI - Math.atan2(r, z);
+    
   }
 
   /**
