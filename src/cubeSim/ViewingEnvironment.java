@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Polygon;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JFrame;
@@ -31,7 +34,7 @@ public class ViewingEnvironment {
     ViewingEnvironment environ = new ViewingEnvironment(500, 500);
     environ.addViewable(new Cube(10));
     //Adds a new viewer, pointing directly towards the origin
-    Viewer v = new CenterViewer(40, 60, 40, Math.PI / 2, Math.PI / 2, environ);
+    Viewer v = new CenterViewer(-20, 60, 40, Math.PI / 4, Math.PI / 4, environ);
     environ.addViewer(v);
     
     JFrame encaps = new JFrame("Cube!");
@@ -40,7 +43,6 @@ public class ViewingEnvironment {
       public void paint(Graphics g) {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, environ.getWidth(), environ.getHeight());
-        g.setColor(Color.GREEN);
         Polygon[] displayable = environ.getDisplayablePolygons();
         int i = 0;
         for (Polygon p: displayable) {
@@ -58,6 +60,14 @@ public class ViewingEnvironment {
     encaps.setSize(drawer.getPreferredSize());
     encaps.setVisible(true);
     drawer.repaint();
+    
+    //Sets up the mouse listener so the viewer can rotate around the cube
+    MouseListener mousey = new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        //TODO
+      }
+    };
   }
   
   /**
