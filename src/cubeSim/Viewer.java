@@ -25,8 +25,8 @@ public class Viewer implements Comparator<Polygon3d> {
    * @param x X location in the viewing environment
    * @param y Y location in the viewing environment
    * @param z Z location in the viewing environment
-   * @param theta Polar looking angle
-   * @param phi Azimuthal looking angle
+   * @param theta the polar angle of the viewer
+   * @param phi the azimuthal angle of the viewer
    */
   public Viewer (double x, double y, double z, double theta, double phi, double viewingWidth, double viewingHeight, ViewingEnvironment environ) {
     this.x = x;
@@ -37,6 +37,19 @@ public class Viewer implements Comparator<Polygon3d> {
     this.viewingWidth = viewingWidth;
     this.viewingHeight = viewingHeight;
     this.environ = environ;
+    //Remove if you want viewer to not be fixed on center
+    setAnglesTowardsCenter();
+  }
+  
+  /**
+   * Sets the angles of the viewer such that they point directly
+   * towards the center of the environment.
+   */
+  public void setAnglesTowardsCenter() {
+    theta = Math.atan2(-y, -x) + 2 * Math.PI;
+    //Polar distance from z axis
+    double r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+    phi = Math.PI - Math.atan2(r, z);
   }
 
   /**

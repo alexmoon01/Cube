@@ -31,7 +31,7 @@ public class ViewingEnvironment {
     ViewingEnvironment environ = new ViewingEnvironment(500, 500);
     environ.addViewable(new Cube(10));
     //Adds a new viewer, pointing directly towards the origin
-    Viewer v = new Viewer(40, 40, 40, 5 * Math.PI / 4, 3 * Math.PI / 4, Math.PI / 2, Math.PI / 2, environ);
+    Viewer v = new Viewer(40, 60, 40, 5 * Math.PI / 4, 3 * Math.PI / 4, Math.PI / 2, Math.PI / 2, environ);
     environ.addViewer(v);
     
     JFrame encaps = new JFrame("Cube!");
@@ -42,16 +42,16 @@ public class ViewingEnvironment {
         g.fillRect(0, 0, environ.getWidth(), environ.getHeight());
         g.setColor(Color.GREEN);
         Polygon[] displayable = environ.getDisplayablePolygons();
-        System.out.println(Arrays.toString(displayable[0].xpoints));
         int i = 0;
         for (Polygon p: displayable) {
+          //Sets a unique color for each face
           g.setColor(new Color(i * 20, 255 - i * 20, i * 10));
           i++;
           g.fillPolygon(p);
         }
       }
     };
-    
+    //Sets up the drawable panel within the jframe
     encaps.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     encaps.add(drawer);
     drawer.setPreferredSize(new Dimension(environ.getWidth(), environ.getHeight()));
@@ -132,7 +132,6 @@ public class ViewingEnvironment {
     double middleY = this.height / 2;
     
     //Determining the actual location of the point
-    System.out.println(angleOffYMiddle);
     double screenX = middleX + width * (angleOffXMiddle / v.getViewingWidth());
     double screenY = middleY + height * (angleOffYMiddle / v.getViewingHeight());
     
