@@ -34,7 +34,7 @@ public class ViewingEnvironment {
     ViewingEnvironment environ = new ViewingEnvironment(500, 500);
     environ.addViewable(new Cube(10));
     //Adds a new viewer, pointing directly towards the origin
-    Viewer v = new CenterViewer(-20, 60, 40, Math.PI / 4, Math.PI / 4, environ);
+    CenterViewer v = new CenterViewer(-20, 60, 40, Math.PI / 4, Math.PI / 4, environ);
     environ.addViewer(v);
     
     JFrame encaps = new JFrame("Cube!");
@@ -65,9 +65,25 @@ public class ViewingEnvironment {
     MouseListener mousey = new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        //TODO
+        v.toggleMousePressed(true);
+      }
+      
+      @Override
+      public void mouseReleased(MouseEvent e) {
+        v.toggleMousePressed(false);
       }
     };
+    encaps.addMouseListener(mousey);
+    while (true) {
+      v.move();
+      drawer.repaint();
+      try {
+        Thread.sleep(100);
+      } catch (InterruptedException e) {
+        System.out.println("This shouldn't happen");
+        System.exit(1);
+      }
+    }
   }
   
   /**

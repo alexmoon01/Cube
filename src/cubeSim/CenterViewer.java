@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 public class CenterViewer extends Viewer {
 
   private final int VELOCITY;
+  private final double DIST_FROM_ORIGIN;
   private boolean mousePressed;
   private double mouseX, mouseY;
   
@@ -28,22 +29,50 @@ public class CenterViewer extends Viewer {
     //0's are placeholders for angles which will be set in the setAngles method
     super(x, y, z, 0, 0, viewingWidth, viewingHeight, environ);
     setAnglesTowardsCenter();
-    VELOCITY = 3;
+    VELOCITY = 10;
+    DIST_FROM_ORIGIN = Point3d.distanceBetween(new Point3d(x, y, z), new Point3d(0, 0, 0));
   }
   
   public void move() {
     if (mousePressed) {
       double newMouseX = MouseInfo.getPointerInfo().getLocation().getX();
       double newMouseY = MouseInfo.getPointerInfo().getLocation().getY();
-      double direc = Math.atan2(newMouseY - mouseY, newMouseX - mouseX);
-      x += Math.cos(direc) * VELOCITY;
-      y += Math.sin(direc) * VELOCITY;
+      double direc = Math.atan2(mouseY - newMouseY, mouseX - newMouseX);
+      //Reasoning:
+      //<x, y, z> is a vector which is orthogonal to our movement (sphere property) aka
+      //<x, y, z> dot <delx, dely, delz> = 0
+      //||delx, dely, delz|| = VELOCITY
+      //delx = <trig> * VELOCTIY
+      //dely = <trig> * VELOCITY
+      //delz = <trig> * VELOCITY
+      //delz<trig> = cos(phi) * sin(direc)
+      //delx<trig> = sin(phi) * cos(theta) * cos(direc)
+      //dely<trig> = sin(phi) * sin(theta) * cos(direc)
+      x += Math.sin(phi) * Math.cos(theta) * Math.cos(direc) * VELOCITY;
+      y += Math.sin(phi) * Math.sin(theta) * Math.cos(direc) * VELOCITY;
+      z += Math.cos(phi) * Math.sin(direc) * VELOCITY;
       mouseX = newMouseX;
       mouseY = newMouseY;
     }
+    System.out.println(x);
     setAnglesTowardsCenter();
+    resetToDistance();
   }
   
+  /**
+   * Resets the viewer's distance from the center to what it initially was
+   * (preserves angles)
+   */
+  public void resetToDistance() {
+    x = -Math.cos(theta) * Math.sin(phi) * DIST_FROM_ORIGIN;
+    y = -Math.sin(theta) * Math.sin(phi) * DIST_FROM_ORIGIN;
+    z = -Math.cos(phi) * DIST_FROM_ORIGIN;
+  }
+  
+  /**
+   * Sets the mousepressed boolean to the parameter
+   * @param b what mousePressed will be
+   */
   public void toggleMousePressed(boolean b) {
     mousePressed = b;
     if (mousePressed) {
