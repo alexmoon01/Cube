@@ -90,6 +90,14 @@ public class Viewer implements Comparator<Polygon3d> {
   public double getPhi() {
     return phi;
   }
+  
+  /**
+   * 3d point representation of location.
+   * @return The 3d point whose coordinates are that of the viewer
+   */
+  public Point3d getPoint3d() {
+    return new Point3d(x, y, z);
+  }
 
   @Override
   public int compare(Polygon3d o1, Polygon3d o2) {

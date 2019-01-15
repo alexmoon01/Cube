@@ -34,7 +34,7 @@ public class ViewingEnvironment {
     ViewingEnvironment environ = new ViewingEnvironment(500, 500);
     environ.addViewable(new Cube(10));
     //Adds a new viewer, pointing directly towards the origin
-    CenterViewer v = new CenterViewer(-20, 60, 40, Math.PI / 4, Math.PI / 4, environ);
+    CenterViewer v = new CenterViewer(50, 50, 50, Math.PI / 4, Math.PI / 4, environ);
     environ.addViewer(v);
     
     JFrame encaps = new JFrame("Cube!");
@@ -145,19 +145,23 @@ public class ViewingEnvironment {
     double phiViewer = v.getPhi();
     
     //Finds the differences between the point and the viewer
-    double distanceBetween = Math.sqrt(Math.pow(point.X - v.getX(), 2) + Math.pow(point.Y - v.getY(), 2));
+    double distanceBetween = Point3d.distanceBetween(point, v.getPoint3d());
     double thetaBetween = Math.atan2(point.Y - v.getY(), point.X - v.getX());
-    double phiBetween = Math.atan2(distanceBetween, (point.Z - v.getZ()));
+    System.out.println(thetaBetween);
+    double phiBetween = Math.acos((point.Z - v.getZ()) / distanceBetween);
+    
+    //TODO: Figure out how to transform from default coordinate system to coordinate
+    //system based on the location of the viewer
     
     //The distance away from the middle of the screen
-    double angleOffXMiddle = thetaViewer - thetaBetween - 2 * Math.PI;
+    double angleOffXMiddle = thetaViewer - thetaBetween;
     double angleOffYMiddle = phiBetween - phiViewer;
     
     //The middle of the screen
     double middleX = this.width / 2;
     double middleY = this.height / 2;
     
-    //Determining the actual location of the point
+    //Determining the actual location of the point on the screen
     double screenX = middleX + width * (angleOffXMiddle / v.getViewingWidth());
     double screenY = middleY + height * (angleOffYMiddle / v.getViewingHeight());
     

@@ -10,7 +10,6 @@ import java.awt.event.MouseEvent;
  */
 public class CenterViewer extends Viewer {
 
-  private final int VELOCITY;
   private final double DIST_FROM_ORIGIN;
   private boolean mousePressed;
   private double mouseX, mouseY;
@@ -29,8 +28,7 @@ public class CenterViewer extends Viewer {
     //0's are placeholders for angles which will be set in the setAngles method
     super(x, y, z, 0, 0, viewingWidth, viewingHeight, environ);
     setAnglesTowardsCenter();
-    VELOCITY = 10;
-    DIST_FROM_ORIGIN = Point3d.distanceBetween(new Point3d(x, y, z), new Point3d(0, 0, 0));
+    DIST_FROM_ORIGIN = Point3d.distanceBetween(this.getPoint3d(), new Point3d(0, 0, 0));
   }
   
   public void move() {
@@ -38,6 +36,9 @@ public class CenterViewer extends Viewer {
       double newMouseX = MouseInfo.getPointerInfo().getLocation().getX();
       double newMouseY = MouseInfo.getPointerInfo().getLocation().getY();
       double direc = Math.atan2(mouseY - newMouseY, mouseX - newMouseX);
+      //Approx because of the adjustment in resetToDistance
+      double approxDistanceMoved = Math.sqrt(Math.pow(mouseY - newMouseY, 2) + 
+          Math.pow(mouseX - newMouseX, 2));
       //Reasoning:
       //<x, y, z> is a vector which is orthogonal to our movement (sphere property) aka
       //<x, y, z> dot <delx, dely, delz> = 0
@@ -46,17 +47,18 @@ public class CenterViewer extends Viewer {
       //dely = <trig> * VELOCITY
       //delz = <trig> * VELOCITY
       //delz<trig> = cos(phi) * sin(direc)
-      //delx<trig> = sin(phi) * cos(theta) * cos(direc)
-      //dely<trig> = sin(phi) * sin(theta) * cos(direc)
-      x += Math.sin(phi) * Math.cos(theta) * Math.cos(direc) * VELOCITY;
-      y += Math.sin(phi) * Math.sin(theta) * Math.cos(direc) * VELOCITY;
-      z += Math.cos(phi) * Math.sin(direc) * VELOCITY;
+      //delx<trig> = sin(phi) * sin(theta) * cos(direc)
+      //dely<trig> = sin(phi) * cos(theta) * cos(direc)
+      x += Math.sin(phi) * Math.sin(theta) * Math.cos(direc) * approxDistanceMoved;
+      y += Math.sin(phi) * Math.cos(theta) * Math.cos(direc) * approxDistanceMoved;
+      z += Math.cos(phi) * Math.sin(direc) * approxDistanceMoved;
       mouseX = newMouseX;
       mouseY = newMouseY;
+      System.out.println(this.getPoint3d());
+      setAnglesTowardsCenter();
+      resetToDistance();
     }
-    System.out.println(x);
-    setAnglesTowardsCenter();
-    resetToDistance();
+    
   }
   
   /**
@@ -86,10 +88,10 @@ public class CenterViewer extends Viewer {
    * towards the center of the environment.
    */
   public void setAnglesTowardsCenter() {
-    theta = Math.atan2(-y, -x) + 2 * Math.PI;
-    //Polar distance from z axis
-    double r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-    phi = Math.PI - Math.atan2(r, z);
+    theta = Math.atan2(-y, -x);
+    //Distance from origin
+    double r = Point3d.distanceBetween(this.getPoint3d(), new Point3d(0, 0, 0));
+    phi = Math.PI - Math.acos(z / r);
   }
   
 }
