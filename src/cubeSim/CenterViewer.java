@@ -49,14 +49,15 @@ public class CenterViewer extends Viewer {
       //delz<trig> = cos(phi) * sin(direc)
       //delx<trig> = sin(phi) * sin(theta) * cos(direc)
       //dely<trig> = sin(phi) * cos(theta) * cos(direc)
-      x += Math.sin(phi) * Math.sin(theta) * Math.cos(direc) * approxDistanceMoved;
-      y += Math.sin(phi) * Math.cos(theta) * Math.cos(direc) * approxDistanceMoved;
-      z += Math.cos(phi) * Math.sin(direc) * approxDistanceMoved;
-      mouseX = newMouseX;
-      mouseY = newMouseY;
-      System.out.println(this.getPoint3d());
-      setAnglesTowardsCenter();
-      resetToDistance();
+//      x += Math.sin(phi) * Math.sin(theta) * Math.cos(direc) * approxDistanceMoved;
+//      y += Math.sin(phi) * Math.cos(theta) * Math.cos(direc) * approxDistanceMoved;
+//      z += Math.cos(phi) * Math.sin(direc) * approxDistanceMoved;
+//      mouseX = newMouseX;
+//      mouseY = newMouseY;
+//      System.out.println(this.getPoint3d());
+//      setAnglesTowardsCenter();
+//      resetToDistance();
+      y++;
     }
     
   }

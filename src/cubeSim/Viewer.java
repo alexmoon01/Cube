@@ -78,24 +78,25 @@ public class Viewer implements Comparator<Polygon3d> {
     
     //Finds the differences between the point and the viewer
     double distanceBetween = Point3d.distanceBetween(point, this.getPoint3d());
-    double thetaBetween = Math.atan2(point.Y - y, point.X - x);
-    System.out.println(thetaBetween);
-    double phiBetween = Math.acos((point.Z - z) / distanceBetween);
+    double polarDistanceBetween = Math.sqrt(Math.pow(point.X - x, 2)+ Math.pow(point.Y - y, 2));
+    double thetaBetween = (point.Y - y) / polarDistanceBetween;
+    double phiBetween = (point.Z - z) / distanceBetween;
     
     //TODO: Figure out how to transform from default coordinate system to coordinate
     //system based on the location of the viewer
     
     //The distance away from the middle of the screen
-    double angleOffXMiddle = theta - thetaBetween;
-    double angleOffYMiddle = phiBetween - phi;
+    double distOffXMiddle = (Math.sin(theta) - thetaBetween);
+    double distOffYMiddle = (Math.cos(phi) - phiBetween);
     
     //The middle of the screen
     double middleX = environ.getWidth() / 2;
     double middleY = environ.getHeight() / 2;
     
     //Determining the actual location of the point on the screen
-    double screenX = middleX + environ.getWidth() * (angleOffXMiddle / viewingWidth);
-    double screenY = middleY + environ.getHeight() * (angleOffYMiddle / viewingHeight);
+    double screenX = middleX + (distOffXMiddle * environ.getWidth());
+    double screenY = middleY + (distOffYMiddle * environ.getHeight());
+    System.out.println(distOffXMiddle);
     
     return new Point((int)screenX, (int)screenY);
   }
