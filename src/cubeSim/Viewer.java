@@ -1,5 +1,7 @@
 package cubeSim;
 
+import java.awt.Point;
+import java.awt.Polygon;
 import java.util.Comparator;
 
 /**
@@ -40,6 +42,62 @@ public class Viewer implements Comparator<Polygon3d> {
     this.environ = environ;
     //Remove if you want viewer to not be fixed on center
     
+  }
+  
+  /**
+   * The fun method! Casts a polygon from 3d space into 2d.
+   * @param v The viewer that the polygon will be visible to.
+   * @param polygon The 3d polygon that will be transformed.
+   * @return The 2d polygon that will be displayed on the screen.
+   */
+  public Polygon to2d(Polygon3d polygon) {
+    //Casts all 3d points into 2d
+    Point[] points2d = new Point[polygon.getNumPoints()];
+    for (int i = 0; i < polygon.getNumPoints(); i++) {
+      Point3d p3d = polygon.getPoints()[i];
+      points2d[i] = to2d(p3d);
+    }
+    
+    //Splits the points up because the polygon constructor is weird
+    int[] x = new int[points2d.length];
+    int[] y = new int[points2d.length];
+    for (int i = 0; i < points2d.length; i++) {
+      x[i] = points2d[i].x;
+      y[i] = points2d[i].y;
+    }
+    return new Polygon(x, y, points2d.length);
+  }
+  
+  /**
+   * Casts a point from 3d space into 2d.
+   * @param v The viewer that the point will be visible to/
+   * @param point The 3d point that will be transformed
+   * @return The 2d point that will be displayed on the screen.
+   */
+  public Point to2d(Point3d point) {
+    
+    //Finds the differences between the point and the viewer
+    double distanceBetween = Point3d.distanceBetween(point, this.getPoint3d());
+    double thetaBetween = Math.atan2(point.Y - y, point.X - x);
+    System.out.println(thetaBetween);
+    double phiBetween = Math.acos((point.Z - z) / distanceBetween);
+    
+    //TODO: Figure out how to transform from default coordinate system to coordinate
+    //system based on the location of the viewer
+    
+    //The distance away from the middle of the screen
+    double angleOffXMiddle = theta - thetaBetween;
+    double angleOffYMiddle = phiBetween - phi;
+    
+    //The middle of the screen
+    double middleX = environ.getWidth() / 2;
+    double middleY = environ.getHeight() / 2;
+    
+    //Determining the actual location of the point on the screen
+    double screenX = middleX + environ.getWidth() * (angleOffXMiddle / viewingWidth);
+    double screenY = middleY + environ.getHeight() * (angleOffYMiddle / viewingHeight);
+    
+    return new Point((int)screenX, (int)screenY);
   }
 
   /**
